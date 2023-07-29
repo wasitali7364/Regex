@@ -1,0 +1,58 @@
+>>> import re
+>>> content = "My favorite numbers are 13 and 42"
+>>> re.sub(r"\d+", "#", content)
+'My favorite numbers are # and #'
+>>> re.sub(r"\d+", "#", content, count=1)
+'My favorite numbers are # and 42'
+>>> def reverse(match):
+...     return match.group(0)[::-1]   # slice reverses the string
+...
+>>> re.sub(r"\d+", reverse, content)
+'My favorite numbers are 31 and 24'
+>>> re.sub(r"(\w+)\s(\w+)", r"\2 \1", "one two")
+'two one'
+>>> re.sub(r"(\d+)", r"\10", "Is this a 1?")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/re.py", line 208, in sub
+    return _compile(pattern, flags).sub(repl, string, count)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/re.py", line 325, in _subx
+    template = _compile_repl(template, pattern)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/re.py", line 316, in _compile_repl
+    return sre_parse.parse_template(repl, pattern)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/sre_parse.py", line 1036, in parse_template
+    addgroup(int(this[1:]), len(this) - 1)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/sre_parse.py", line 980, in addgroup
+    raise s.error("invalid group reference %d" % index, pos)
+re.error: invalid group reference 10 at position 1
+>>> re.sub(r"(\d+)", r"\g<1>0", "Is this a 1?")
+'Is this a 10?'
+>>> re.sub("x*", "-", "spam")
+'-s-p-a-m-'
+>>> re.subn("x*", "-", "spam")
+('-s-p-a-m-', 5)
+>>> "one,two,three".split(",")
+['one', 'two', 'three']
+>>> re.split(r"\d+", "My favorite numbers are 13 and 42.")
+['My favorite numbers are ', ' and ', '.']
+>>> re.split(r"\d+", "My favorite numbers are 13 and 42.", maxsplit=1)
+['My favorite numbers are ', ' and 42.']
+>>> re.split(r"(\d+)", "My favorite numbers are 13 and 42.")
+['My favorite numbers are ', '13', ' and ', '42', '.']
+>>> re.split(r"(?:\d+)", "My favorite numbers are 13 and 42.")
+['My favorite numbers are ', ' and ', '.']
+>>> re.findall("2^4", "Even more than 2^2 is 2^4")
+[]
+>>> regex = re.escape("2^4")
+>>> regex
+'2\\^4'
+>>> re.findall(regex, "Even more than 2^2 is 2^4")
+['2^4']
+>>> digits_re = re.compile("(\d+)")
+>>> digits_re
+re.compile('(\\d+)')
+>>> digits_re.search("My favorite numbers are 13 and 42.")
+<re.Match object; span=(25, 27), match='13'>
+>>> DIGITS_RE = "(\d+)"
+>>> re.search(DIGITS_RE, "My favorite numbers are 13 and 42.")
+<re.Match object; span=(25, 27), match='13'>

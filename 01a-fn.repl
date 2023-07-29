@@ -1,0 +1,24 @@
+>>> import re
+>>> question = "Lovely spam! Wonderful spam!"
+>>> re.search("spam", question)
+<re.Match object; span=(7, 11), match='spam'>
+>>> question[7:11]
+'spam'
+>>> match = re.search("spam", question)
+>>> bool(match)
+True
+>>> match.span()
+(7, 11)
+>>> match.start()
+7
+>>> match.end()
+11
+>>> match.string
+'Lovely spam! Wonderful spam!'
+>>> re.match("spam", question)
+>>> match = re.match("spam", question)
+>>> match
+>>> match is None
+True
+>>> bool(match)
+False

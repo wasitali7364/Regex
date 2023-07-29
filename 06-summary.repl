@@ -1,0 +1,12 @@
+>>> re.search("spam", "Green eggs and spam")
+<re.Match object; span=(15, 19), match='spam'>
+>>> re.search("[0-9]", "I live at the 2nd house")
+<re.Match object; span=(14, 15), match='2'>
+>>> re.search("\s\d\w+", "I live at the 2nd house")
+<re.Match object; span=(13, 17), match=' 2nd'>
+>>> re.search("^My", "Hello\nMy name is George", re.MULTILINE)
+>>> re.search("\d+", "My phone number is 555-1212")
+<re.Match object; span=(19, 22), match='555'>
+>>> match = re.search("(\d+)", "My phone number is 555-1212")
+>>> match.groups()
+('555',)

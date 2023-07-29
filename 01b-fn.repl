@@ -1,0 +1,12 @@
+>>> re.match("\w{5}", question)
+<re.Match object; span=(0, 5), match='Lovel'>
+>>> re.fullmatch("spam", question)
+>>> match = re.fullmatch("spam", question)
+>>> match is None
+True
+>>> re.fullmatch("((\w*\s*)*!)*", question)
+<re.Match object; span=(0, 28), match='Lovely spam! Wonderful spam!'>
+>>> re.findall("[aeiou][^aeiou]", question)
+['ov', 'el', 'am', 'on', 'er', 'ul', 'am']
+>>> re.finditer("[aeiou][^aeiou]", question)
+<callable_iterator object at 0x7f9048900130>

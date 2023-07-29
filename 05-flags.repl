@@ -1,0 +1,96 @@
+>>> import re
+>>> re.search("a+", "AAA")
+>>> re.search("a+", "AAA", re.IGNORECASE)
+<re.Match object; span=(0, 3), match='AAA'>
+>>> re.search("a+", "AAA", re.I)
+<re.Match object; span=(0, 3), match='AAA'>
+>>> re.search("^I", "Yes you did, no\nI didn't")
+>>> re.search("^I", "Yes you did, no\nI didn't", re.MULTILINE)
+<re.Match object; span=(16, 17), match='I'>
+>>> re.search("\AI", "Yes you did, no\nI didn't", re.MULTILINE)
+>>> re.search("1.2", "First 1\n2 next")
+>>> re.search("1.2", "First 1\n2 next", re.DOTALL)
+<re.Match object; span=(6, 9), match='1\n2'>
+>>> PHONE_REGEX = """
+...     (1\s)?        # optional leading 1
+...     \(\d\d\d\)    # area code
+...     \s
+...     \d\d\d-       # prefix
+...     \d\d\d\d      # line number
+... """
+>>> phone = re.compile(PHONE_REGEX, re.VERBOSE)
+>>> phone.match('1 (416) 967-1111')
+<re.Match object; span=(0, 16), match='1 (416) 967-1111'>
+>>> re.search("bacon, eggs", "bacon, eggs, and spam")
+<re.Match object; span=(0, 11), match='bacon, eggs'>
+>>> re.search("bacon, eggs", "bacon, eggs, and spam", re.VERBOSE)
+>>> vikings = "Spam spam spam spam. Lovely spam! Wonderful spam!"
+>>> re.search("(spam.){3}", vikings)
+<re.Match object; span=(5, 20), match='spam spam spam.'>
+>>> re.search("(spam.){three}", vikings)
+>>> re.search("(spam.){three}", vikings, re.DEBUG)
+SUBPATTERN 1 0 0
+  LITERAL 115
+  LITERAL 112
+  LITERAL 97
+  LITERAL 109
+  ANY None
+LITERAL 123
+LITERAL 116
+LITERAL 104
+LITERAL 114
+LITERAL 101
+LITERAL 101
+LITERAL 125
+
+ 0. INFO 14 0b1 12 12 (to 15)
+      prefix_skip 0
+      prefix [0x73, 0x70, 0x61, 0x6d] ('spam')
+      overlap [0, 0, 0, 0]
+15: MARK 0
+17. LITERAL 0x73 ('s')
+19. LITERAL 0x70 ('p')
+21. LITERAL 0x61 ('a')
+23. LITERAL 0x6d ('m')
+25. ANY
+26. MARK 1
+28. LITERAL 0x7b ('{')
+30. LITERAL 0x74 ('t')
+32. LITERAL 0x68 ('h')
+34. LITERAL 0x72 ('r')
+36. LITERAL 0x65 ('e')
+38. LITERAL 0x65 ('e')
+40. LITERAL 0x7d ('}')
+42. SUCCESS
+>>> re.search("(spam.){3}", vikings, re.DEBUG)
+MAX_REPEAT 3 3
+  SUBPATTERN 1 0 0
+    LITERAL 115
+    LITERAL 112
+    LITERAL 97
+    LITERAL 109
+    ANY None
+
+ 0. INFO 4 0b0 15 15 (to 5)
+ 5: REPEAT 16 3 3 (to 22)
+ 9.   MARK 0
+11.   LITERAL 0x73 ('s')
+13.   LITERAL 0x70 ('p')
+15.   LITERAL 0x61 ('a')
+17.   LITERAL 0x6d ('m')
+19.   ANY
+20.   MARK 1
+22: MAX_UNTIL
+23. SUCCESS
+<re.Match object; span=(5, 20), match='spam spam spam.'>
+>>> re.search("^i", "Yes you did, no\nI didn't", re.MULTILINE)
+>>> re.search("^i", "Yes you did, no\nI didn't", re.MULTILINE | re.IGNORECASE)
+<re.Match object; span=(16, 17), match='I'>
+>>> re.search("(?im)^i", "Yes you did, no\nI didn't")
+<re.Match object; span=(16, 17), match='I'>
+>>> re.search("^i(?im)", "Yes you did, no\nI didn't")
+<re.Match object; span=(16, 17), match='I'>
+>>> re.findall("(?i:s)pam", "Spam, spam, spam, SPAM")
+['Spam', 'spam', 'spam']
+>>> re.findall("(?-i:s)pam", "Spam, spam, spam, SPAM", re.IGNORECASE)
+['spam', 'spam']

@@ -1,0 +1,12 @@
+>>> import re
+>>> content = "I count like this: one, two, three"
+>>> match = re.search(r"(\w+), (\w+), (\w+)", content)
+>>> match
+<re.Match object; span=(19, 34), match='one, two, three'>
+>>> match.groups()
+('one', 'two', 'three')
+>>> match = re.search(r"(?P<first>\w+), (?P<second>\w+), (?P<third>\w+)", content)
+>>> match.groups()
+('one', 'two', 'three')
+>>> match.groupdict()
+{'first': 'one', 'second': 'two', 'third': 'three'}
